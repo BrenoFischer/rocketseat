@@ -59,3 +59,63 @@
     font-size: 1.2rem;
     display: flex;
 }
+
+
+.tasks {
+    margin-top: 4rem;
+}
+
+.tasks header {
+    display: flex;
+    justify-content: space-between;
+
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 17px;
+
+    color: var(--blue);
+
+    margin-bottom: 1.5rem;
+}
+
+.completedText {
+    color: var(--purple);
+}
+
+.tasksInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.counter {
+    background: var(--gray-400);
+    padding: 0.125rem 0.5rem;
+    border-radius: 999px;
+
+    color: var(--gray-200);
+    font-weight: 700;
+    font-size: 0.75rem;
+    line-height: 15px;
+}
+
+.empty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+
+    border-top: 1px solid var(--gray-400);
+
+    padding: 4rem 1.5rem;
+
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 140%;
+}
+
+.empty span {
+    font-weight: 700;
+    color: var(--gray-300);
+}
