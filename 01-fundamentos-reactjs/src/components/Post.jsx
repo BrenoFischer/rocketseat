@@ -1,49 +1,96 @@
+import { useState } from 'react';
+
+import { format, formatDistanceToNow } from 'date-fns';
+
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
+
 import styles from './Post.module.css';
 
-export function Post() {
+export function Post({ author, publishedAt, content }) {
+    const [comments, setComments] = useState([]);
+    const [newCommentText, setNewCommentText] = useState('');
+
+    const publishedDAteFormatted = format(publishedAt, "d 'of' LLLL 'at' HH:mm'h'");
+
+    const publishedDateRelativeNow = formatDistanceToNow(publishedAt, {
+        addSuffix: true,
+    });
+
+    function handleNewCommentChange() {
+        event.target.setCustomValidity('');
+        setNewCommentText(event.target.value);
+    }
+
+    function handleCreateNewComment() {
+        event.preventDefault();
+
+        setComments([...comments, newCommentText]);
+
+        setNewCommentText('');
+    }
+
+    function handleNewCommentInvalid() {
+        event.target.setCustomValidity('This field is mandatory.');
+    }
+
+    function onDeleteComment(commentToDelete) {
+        const commentsWithoutDeletedOne = comments.filter(comment => {
+            return comment !== commentToDelete;
+        });
+
+        setComments(commentsWithoutDeletedOne);
+    }
+
+    const isNewCommentEmpty = newCommentText.length === 0;
+
     return (
         <article className={styles.post}>
             <header>
                 <div className={styles.author}>
                     <Avatar 
-                        src="https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80"
+                        src={author.avatarUrl}
                     />
 
                     <div className={styles.authorInfo}>
-                        <strong>Breno Perricone</strong>
-                        <span>Web Developer</span>
+                        <strong>{author.name}</strong>
+                        <span>{author.role}</span>
                     </div>
                 </div>
 
-                <time title='15 May 2023 08:19:00' dateTime='2023-05-15 08:19:00'>Published 1h ago</time>
+                <time title={publishedDAteFormatted} dateTime={publishedAt.toISOString()}>{publishedDateRelativeNow}</time>
             </header>
 
             <div className={styles.content}>
-                <p>Fala galeraa 👋</p>
-                <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-                <p>👉{' '}<a href="#">jane.design/doctorcare</a></p>
-                <p>
-                    <a href="#">#novoprojeto</a>{' '}
-                    <a href="#">#nlw</a> {' '}
-                    <a href="#">#rocketseat</a>
-                </p>
+                {content.map(line => {
+                    if(line.type === 'paragraph'){
+                        return <p key={line.content}>{line.content}</p> 
+                    } else if (line.type === 'link') {
+                        return <p key={line.content}><a href="#">{line.content}</a></p>
+                    }
+                })}
             </div>
 
-            <form className={styles.commentForm}>
+            <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
                 <strong>Leave your feedback</strong>
 
-                <textarea placeholder='Leave a comment'/>
+                <textarea 
+                    name="comment"
+                    placeholder='Leave a comment'
+                    value={newCommentText}
+                    onChange={handleNewCommentChange}
+                    onInvalid={handleNewCommentInvalid}
+                    required
+                />
                 <footer>
-                    <button type='submit'>Comment</button>
+                    <button type='submit' disabled={isNewCommentEmpty} >Comment</button>
                 </footer>
             </form>
 
             <div className={styles.commentList}>
-                <Comment />
-                <Comment />
-                <Comment />
+                {comments.map(comment => {
+                    return <Comment key={comment} content={comment} onDeleteComment={onDeleteComment} />
+                })}
             </div>
         </article>
     );
