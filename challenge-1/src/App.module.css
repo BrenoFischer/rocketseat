@@ -1,0 +1,61 @@
+.todoWrapper {
+    width: 100%;
+    
+    display: flex;
+    justify-content: center;
+}
+
+.todoContent {
+    margin-top: -1.6875rem;
+    width: 46rem;
+}
+
+.newTask {
+    display: flex;
+
+    gap: 0.5rem;
+}
+
+.newTask input {
+    background: var(--gray-500);
+    border: 1px solid var(--gray-700);
+    border-radius: 8px;
+
+    font-size: 1rem;
+    line-height: 140%;
+
+    padding: 1rem;
+
+    resize: none;
+
+    flex: 1
+}
+
+.newTask input:focus {
+    color: var(--gray-100);
+}
+
+.newTask button[type='submit'] {
+    background: var(--blueDark);
+    border-radius: 8px;
+    width: 5.625rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+
+    padding: 1rem;
+
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 140%;
+    color: var(--gray-100);
+
+    cursor: pointer;
+}
+
+.newTask span {
+    font-size: 1.2rem;
+    display: flex;
+}
