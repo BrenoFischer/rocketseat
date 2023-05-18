@@ -38,6 +38,7 @@
 .newTask button[type='submit'] {
     background: var(--blueDark);
     border-radius: 8px;
+    border: 0;
     width: 5.625rem;
 
     display: flex;
@@ -53,6 +54,10 @@
     color: var(--gray-100);
 
     cursor: pointer;
+}
+
+.newTask button[type='submit']:hover {
+    background: var(--blue);
 }
 
 .newTask span {

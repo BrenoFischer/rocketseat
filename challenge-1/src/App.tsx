@@ -4,6 +4,7 @@ import { Header } from "./components/Header";
 import Clipboard from './assets/clipboard.svg';
 
 import styles from './App.module.css';
+import { Task } from './components/Task';
 
 function App() {
 
@@ -32,13 +33,16 @@ function App() {
                 <span className={styles.counter}>0</span>
               </div>
             </header>
-            <section className={styles.empty}>
+            {/* <section className={styles.empty}>
               <img src={Clipboard} />
               <div>
                 <p><span>You still do not have any tasks created</span></p>
                 <p>Create tasks and organize your ToDos</p>
               </div>
-            </section>
+            </section> */}
+
+            <Task />
+            <Task />
           </main>
         </div>
       </div>
