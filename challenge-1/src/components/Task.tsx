@@ -10,9 +10,9 @@ export interface TaskType {
 export function Task({ content, isCompleted }:TaskType) {
     return (
         <li className={styles.task}>
-            <div className={styles.inputWrapper}>
-                <input type='checkbox' id='checkbox' />
-                <label htmlFor='checkbox'></label>
+            <div className={styles.checkboxWrapper}>
+                <input className={styles.checkbox} type='checkbox' id='checkbox' />
+                <span className={styles.checkmark}></span>
             </div>
             <p>{content}</p>
             <Trash size={20} />

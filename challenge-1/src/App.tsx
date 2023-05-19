@@ -46,7 +46,7 @@ function App() {
             <header>
               <div className={styles.tasksInfo}>
                 Created tasks 
-                <span className={styles.counter}>0</span>
+                <span className={styles.counter}>{tasks.length}</span>
               </div>
               <div className={styles.tasksInfo}>
                 <span className={styles.completedText}>Completed</span>
