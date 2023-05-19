@@ -33,6 +33,7 @@
 
 .newTask input:focus {
     color: var(--gray-100);
+    box-shadow: 0 0 0 2px var(--purpleDark);
 }
 
 .newTask button[type='submit'] {
@@ -58,6 +59,10 @@
 
 .newTask button[type='submit']:hover {
     background: var(--blue);
+}
+
+.newTask button[type='submit']:focus {
+    box-shadow: 0 0 0 2px var(--purpleDark);
 }
 
 .newTask span {
