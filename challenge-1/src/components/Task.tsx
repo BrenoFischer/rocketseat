@@ -15,7 +15,9 @@ export function Task({ content, isCompleted }:TaskType) {
                 <span className={styles.checkmark}></span>
             </div>
             <p>{content}</p>
-            <Trash size={20} />
+            <div className={styles.trashWrapper}>
+                <Trash size={17} />
+            </div>
         </li>
     );
 }

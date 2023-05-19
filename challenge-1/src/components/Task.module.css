@@ -84,3 +84,26 @@
 .checkbox:checked + .checkmark:after {
     opacity: 1;
 }
+
+
+.trashWrapper {
+    border-radius: 4px;
+
+    width: 1.5rem;
+    height: 1.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.trashWrapper:hover {
+    background-color: var(--gray-400);
+}
+
+.trashWrapper:hover svg {
+    color: var(--danger);
+}
