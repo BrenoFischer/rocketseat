@@ -24,7 +24,7 @@ export function Task({ task, handleDelete, toggleTaskStatus }:TaskProps) {
     }
 
     return (
-        <li className={styles.task}>
+        <li className={`${styles.task} ${task.isCompleted && styles.completed}`}>
             <div className={styles.checkboxWrapper} onClick={onToggleTaskStatus} >
                 <input className={styles.checkbox} type='checkbox' id='checkbox' />
                 <span className={styles.checkmark}></span>
@@ -33,9 +33,6 @@ export function Task({ task, handleDelete, toggleTaskStatus }:TaskProps) {
             <div className={styles.trashWrapper} onClick={onDeleteTask}>
                 <Trash size={17} />
             </div>
-            { task.isCompleted && 
-                <h1>Completeeeed</h1>
-            }
         </li>
     );
 }

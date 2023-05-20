@@ -15,11 +15,20 @@
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.06);
 }
 
+.completed {
+    border: 1px solid var(--gray-500);
+}
+
 .task p {
     font-weight: 400;
     font-size: 0.875rem;
     line-height: 140%;
-    color: var(--gray-100)
+    color: var(--gray-100);
+}
+
+.completed p {
+    color: var(--gray-300);
+    text-decoration: line-through;
 }
 
 .checkboxWrapper {
