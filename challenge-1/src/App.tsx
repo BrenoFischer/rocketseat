@@ -1,6 +1,7 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 
 import { PlusCircle } from '@phosphor-icons/react';
+import shortid from 'shortid';
 
 import Clipboard from './assets/clipboard.svg';
 import { Header } from "./components/Header";
@@ -16,12 +17,26 @@ function App() {
     setNewTaskContent(event.target.value);
   }
 
+  function handleDeleteTask(idOfTaskToDelete: string) {
+    const filteredTasks = tasks.filter(task => {
+      return task.id !== idOfTaskToDelete
+    });
+
+    setTasks(filteredTasks);
+  }
+
   function handleNewTask(event: FormEvent) {
     event.preventDefault();
-    const newTask = { content: newTaskContent, isCompleted: false }
 
-    setTasks([...tasks, newTask]);
+    const newTask = { 
+      id: shortid.generate(),
+      content: newTaskContent,
+      isCompleted: false,
+    }
+
+    setTasks((state) => [...state, newTask]);
     setNewTaskContent('');
+    console.log(tasks);
   }
 
   return (
@@ -34,7 +49,6 @@ function App() {
             <input 
               placeholder="Add a new task"
               value={newTaskContent}
-              name="newTask"
               onChange={handleNewTaskContentChange}
               required
             />
@@ -53,6 +67,7 @@ function App() {
                 <span className={styles.counter}>0</span>
               </div>
             </header>
+
             { tasks.length === 0 ?
               <section className={styles.empty}>
                 <img src={Clipboard} />
@@ -62,9 +77,12 @@ function App() {
                 </div>
               </section>
               :
-              tasks.map(task => {
-                return <Task content={task.content} isCompleted={task.isCompleted} />
-              })
+              <ul>
+                { tasks.map(task => {
+                  return <Task key={task.id} task={task} handleDelete={handleDeleteTask} />
+                })
+                }
+              </ul>
             }
           </main>
         </div>
