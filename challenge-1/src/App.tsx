@@ -13,6 +13,31 @@ function App() {
   const [tasks, setTasks] = useState<TaskType[]>([]);
   const [newTaskContent, setNewTaskContent] = useState('');
 
+  const quantityOfTasksCompleted = tasks.reduce((totalCompleted, task) => {
+    if(task.isCompleted){
+      return totalCompleted + 1;
+    } 
+    return totalCompleted;
+  }, 0);
+
+  function toggleTaskStatus(id: string) {
+    const updatedTasks = tasks.map(task => {
+      if(task.id === id) {
+        return {
+          id: id,
+          content: task.content,
+          isCompleted: !task.isCompleted,
+        };
+      }
+      else {
+        return task;
+      }
+    });
+
+    setTasks(updatedTasks);
+  }
+
+
   function handleNewTaskContentChange(event: ChangeEvent<HTMLInputElement>) {
     setNewTaskContent(event.target.value);
   }
@@ -36,7 +61,6 @@ function App() {
 
     setTasks((state) => [...state, newTask]);
     setNewTaskContent('');
-    console.log(tasks);
   }
 
   return (
@@ -45,6 +69,8 @@ function App() {
       
       <div className={styles.todoWrapper}>
         <div className={styles.todoContent}>
+
+          {/* --- New Task --- */}
           <form onSubmit={handleNewTask} className={styles.newTask}>
             <input 
               placeholder="Add a new task"
@@ -55,7 +81,9 @@ function App() {
 
             <button type="submit">Create <span><PlusCircle /></span></button>
           </form>
+          {/* --- New Task --- */}
 
+          {/* --- Tasks --- */}
           <main className={styles.tasks}>
             <header>
               <div className={styles.tasksInfo}>
@@ -64,7 +92,7 @@ function App() {
               </div>
               <div className={styles.tasksInfo}>
                 <span className={styles.completedText}>Completed</span>
-                <span className={styles.counter}>0</span>
+                <span className={styles.counter}>{quantityOfTasksCompleted}</span>
               </div>
             </header>
 
@@ -79,12 +107,13 @@ function App() {
               :
               <ul>
                 { tasks.map(task => {
-                  return <Task key={task.id} task={task} handleDelete={handleDeleteTask} />
+                  return <Task key={task.id} task={task} handleDelete={handleDeleteTask} toggleTaskStatus={toggleTaskStatus} />
                 })
                 }
               </ul>
             }
           </main>
+          {/* --- Tasks --- */}
         </div>
       </div>
     </>
