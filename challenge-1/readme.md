@@ -1,4 +1,4 @@
-<a href="ignite-react-challenge1.netlify.app">
+<a href="https://ignite-react-challenge1.netlify.app">
     <img alt="cover" src="./src/assets/readme-images/cover.png" />
 </a>
 
@@ -8,7 +8,7 @@
 
 <p>ToDo list to practice what was learned during <a href="https://www.rocketseat.com.br/ignite#trilhas">Rocketseat Ignite course - React Trail - Fundamentals of React</a>.</p>
 
-<p>You can check the project live on 🔗 <a href="ignite-react-challenge1.netlify.app">ignite-react-challenge1.netlify.app</a></p>
+<p>You can check the project live on 🔗 <a href="https://ignite-react-challenge1.netlify.app">ignite-react-challenge1.netlify.app</a></p>
 
 ## 📑 Project Functionalities
 
