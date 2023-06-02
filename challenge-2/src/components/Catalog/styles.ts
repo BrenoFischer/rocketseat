@@ -15,4 +15,9 @@ export const CatalogContainer = styled.main`
 export const CoffeeCardList = styled.ul`
   margin-top: 3.4rem;
   list-style: none;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  row-gap: 2.5rem;
+  column-gap: 2rem;
 `

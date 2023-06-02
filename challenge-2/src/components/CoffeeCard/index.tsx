@@ -1,5 +1,4 @@
 import { ShoppingCart } from '@phosphor-icons/react'
-import Mochaccino from '../../assets/coffees/mochaccino.png'
 
 import {
   CardCartContainer,
@@ -13,25 +12,33 @@ import {
   TextContainer,
 } from './styles'
 
-export function CoffeeCard() {
+interface CoffeeCardProps {
+  img: string
+  tags: string[]
+  title: string
+  text: string
+  price: string
+}
+
+export function CoffeeCard({ img, tags, title, text, price }: CoffeeCardProps) {
   return (
     <CoffeeCardContainer>
       <CoffeeCardWrapper>
         <div>
-          <img src={Mochaccino} alt="Coffee on cup" />
+          <img src={img} alt="Coffee on cup" />
         </div>
         <Tags>
-          <li>Traditional</li>
-          <li>+ Milk</li>
-          <li>+ Milk</li>
+          {tags.map((tag, idx) => (
+            <li key={idx}>{tag}</li>
+          ))}
         </Tags>
         <TextContainer>
-          <h3>Mochaccino</h3>
-          <p>Espresso coffee with chocolate, a little milk and foam</p>
+          <h3>{title}</h3>
+          <p>{text}</p>
         </TextContainer>
         <PurchaseContainer>
           <Price>
-            R$ <span>9,90</span>
+            R$ <span>{price}</span>
           </Price>
           <CardShopContainer>
             <QuantityContainer>- 1 +</QuantityContainer>

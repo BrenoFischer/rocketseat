@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const CoffeeCardContainer = styled.li`
   background: ${(props) => props.theme['base-card']};
   width: 16rem;
-  max-height: 19.375rem;
+  /* max-height: 19.375rem; */
 
   padding-top: 0.25rem;
 
