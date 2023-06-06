@@ -11,18 +11,28 @@ import {
   Tags,
   TextContainer,
 } from './styles'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { Coffee } from '../../reducers/coffee/reducer'
+import { CartContext } from '../../contexts/CartContext'
 
-interface CoffeeCardProps {
-  img: string
-  tags: string[]
-  title: string
-  text: string
-  price: string
+export interface CoffeeCardProps {
+  coffee: Coffee
 }
 
-export function CoffeeCard({ img, tags, title, text, price }: CoffeeCardProps) {
+export function CoffeeCard({ coffee }: CoffeeCardProps) {
+  const { img, tags, title, text, price } = coffee
   const [quantity, setQuantity] = useState(1)
+
+  const { addCoffeeToCart } = useContext(CartContext)
+
+  function addCoffeeCardAndQuantityToCart() {
+    const newCoffeeToCart = {
+      coffee,
+      quantity,
+    }
+
+    addCoffeeToCart(newCoffeeToCart)
+  }
 
   function changeQuantity(amountToChange: number) {
     const newQuantity = quantity + amountToChange
@@ -60,7 +70,7 @@ export function CoffeeCard({ img, tags, title, text, price }: CoffeeCardProps) {
                 <Plus size={13} />
               </button>
             </QuantityContainer>
-            <CardCartContainer>
+            <CardCartContainer onClick={addCoffeeCardAndQuantityToCart}>
               <ShoppingCart size={17} />
             </CardCartContainer>
           </CardShopContainer>

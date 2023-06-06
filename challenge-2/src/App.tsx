@@ -4,14 +4,17 @@ import { GlobalStyle } from './styles/global'
 import { Header } from './components/Header'
 import { Intro } from './components/Intro'
 import { Catalog } from './components/Catalog'
+import { CartContextProvider } from './contexts/CartContext'
 
 export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Header />
-      <Intro />
-      <Catalog />
-      <GlobalStyle />
+      <CartContextProvider>
+        <Header />
+        <Intro />
+        <Catalog />
+        <GlobalStyle />
+      </CartContextProvider>
     </ThemeProvider>
   )
 }

@@ -137,6 +137,8 @@ export const CardCartContainer = styled.div`
   padding: 0.5rem;
   gap: 0.5rem;
 
+  cursor: pointer;
+
   background: ${(props) => props.theme['purple-dark']};
   border-radius: 6px;
 

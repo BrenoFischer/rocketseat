@@ -37,4 +37,30 @@ export const CartContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  position: relative;
+`
+
+export const CartQuantityIndicator = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0;
+
+  position: absolute;
+  width: 1.25rem;
+  height: 1.25rem;
+  right: -8.35px;
+  top: -8px;
+
+  background: ${(props) => props.theme['yellow-dark']};
+  border-radius: 1000px;
+
+  font-weight: 700;
+  font-size: 0.75rem;
+
+  text-align: center;
+
+  color: ${(props) => props.theme.white};
 `
