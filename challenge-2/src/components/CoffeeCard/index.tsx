@@ -1,4 +1,4 @@
-import { ShoppingCart } from '@phosphor-icons/react'
+import { Minus, Plus, ShoppingCart } from '@phosphor-icons/react'
 
 import {
   CardCartContainer,
@@ -11,6 +11,7 @@ import {
   Tags,
   TextContainer,
 } from './styles'
+import { useState } from 'react'
 
 interface CoffeeCardProps {
   img: string
@@ -21,6 +22,15 @@ interface CoffeeCardProps {
 }
 
 export function CoffeeCard({ img, tags, title, text, price }: CoffeeCardProps) {
+  const [quantity, setQuantity] = useState(1)
+
+  function changeQuantity(amountToChange: number) {
+    const newQuantity = quantity + amountToChange
+    if (newQuantity > 0 && newQuantity < 100) {
+      setQuantity(newQuantity)
+    }
+  }
+
   return (
     <CoffeeCardContainer>
       <CoffeeCardWrapper>
@@ -41,7 +51,15 @@ export function CoffeeCard({ img, tags, title, text, price }: CoffeeCardProps) {
             R$ <span>{price}</span>
           </Price>
           <CardShopContainer>
-            <QuantityContainer>- 1 +</QuantityContainer>
+            <QuantityContainer>
+              <button onClick={() => changeQuantity(-1)}>
+                <Minus size={13} />
+              </button>
+              {quantity}
+              <button onClick={() => changeQuantity(1)}>
+                <Plus size={13} />
+              </button>
+            </QuantityContainer>
             <CardCartContainer>
               <ShoppingCart size={17} />
             </CardCartContainer>
