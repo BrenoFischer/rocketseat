@@ -1,10 +1,6 @@
-import { createContext, useState, ReactNode } from 'react'
-import { Coffee } from '../reducers/coffee/reducer'
-
-interface CoffeeAndQuantity {
-  coffee: Coffee
-  quantity: number
-}
+import { createContext, ReactNode, useReducer, useEffect } from 'react'
+import { CoffeeAndQuantity, coffeesReducer } from '../reducers/coffee/reducer'
+import { addCoffeeToCartAction } from '../reducers/coffee/action'
 
 interface CartContextType {
   coffees: CoffeeAndQuantity[]
@@ -19,10 +15,24 @@ interface CartContextProviderProps {
 }
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [coffees, setCoffees] = useState<CoffeeAndQuantity[]>([])
+  const [coffees, dispatch] = useReducer(coffeesReducer, [], () => {
+    const storedCoffeesAsJson = localStorage.getItem(
+      '@challenge-2:coffees-1.0.0',
+    )
+
+    if (storedCoffeesAsJson) {
+      return JSON.parse(storedCoffeesAsJson)
+    }
+  })
+
+  useEffect(() => {
+    const coffeesJSON = JSON.stringify(coffees)
+
+    localStorage.setItem('@challenge-2:coffees-1.0.0', coffeesJSON)
+  }, [coffees])
 
   function addCoffeeToCart(newCoffee: CoffeeAndQuantity) {
-    setCoffees((state) => [...state, newCoffee])
+    dispatch(addCoffeeToCartAction(newCoffee))
   }
 
   function getCoffeesQuantity() {

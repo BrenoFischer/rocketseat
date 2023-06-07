@@ -12,8 +12,8 @@ import {
   TextContainer,
 } from './styles'
 import { useContext, useState } from 'react'
-import { Coffee } from '../../reducers/coffee/reducer'
-import { CartContext } from '../../contexts/CartContext'
+import { Coffee } from '../../../../reducers/coffee/reducer'
+import { CartContext } from '../../../../contexts/CartContext'
 
 export interface CoffeeCardProps {
   coffee: Coffee

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Coffee, Package, ShoppingCart, Timer } from '@phosphor-icons/react'
 
-import IntroImage from '../../assets/introImage.png'
+import IntroImage from '../../../../assets/introImage.png'
 
 import {
   ITEM_ICONS_COLORS,

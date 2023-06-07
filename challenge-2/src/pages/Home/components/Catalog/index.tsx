@@ -1,8 +1,8 @@
 import { useEffect, useState, useContext } from 'react'
 import { CoffeeCard } from '../CoffeeCard'
 import { CatalogContainer, CoffeeCardList } from './styles'
-import { CATALOG_DATA, CatalogDataItem } from '../../catalog'
-import { CartContext } from '../../contexts/CartContext'
+import { CATALOG_DATA, CatalogDataItem } from '../../../../catalog'
+import { CartContext } from '../../../../contexts/CartContext'
 
 export function Catalog() {
   const [catalog, setCatalog] = useState<CatalogDataItem[]>([])

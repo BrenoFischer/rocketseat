@@ -1,8 +1,10 @@
-import Logo from '../../assets/logo.png'
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { MapPin, ShoppingCart } from '@phosphor-icons/react'
 
 import { CartContext } from '../../contexts/CartContext'
+
+import Logo from '../../assets/logo.png'
 
 import {
   CartContainer,
@@ -19,7 +21,9 @@ export function Header() {
 
   return (
     <HeaderContainer>
-      <img src={Logo} alt="" />
+      <Link to="/">
+        <img src={Logo} alt="" />
+      </Link>
       <HeaderRightItemsContainer>
         <LocationContainer>
           <MapPin size={22} />
