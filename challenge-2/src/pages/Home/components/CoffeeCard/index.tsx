@@ -1,4 +1,4 @@
-import { Minus, Plus, ShoppingCart } from '@phosphor-icons/react'
+import { ShoppingCart } from '@phosphor-icons/react'
 
 import {
   CardCartContainer,
@@ -7,13 +7,13 @@ import {
   CoffeeCardWrapper,
   Price,
   PurchaseContainer,
-  QuantityContainer,
   Tags,
   TextContainer,
 } from './styles'
 import { useContext, useState } from 'react'
 import { Coffee } from '../../../../reducers/coffee/reducer'
 import { CartContext } from '../../../../contexts/CartContext'
+import { CoffeeQuantityInput } from '../../../../components/CoffeeQuantityInput'
 
 export interface CoffeeCardProps {
   coffee: Coffee
@@ -61,15 +61,11 @@ export function CoffeeCard({ coffee }: CoffeeCardProps) {
             R$ <span>{price}</span>
           </Price>
           <CardShopContainer>
-            <QuantityContainer>
-              <button onClick={() => changeQuantity(-1)}>
-                <Minus size={13} />
-              </button>
-              {quantity}
-              <button onClick={() => changeQuantity(1)}>
-                <Plus size={13} />
-              </button>
-            </QuantityContainer>
+            <CoffeeQuantityInput
+              quantity={quantity}
+              addQuantity={() => changeQuantity(1)}
+              removeQuantity={() => changeQuantity(-1)}
+            />
             <CardCartContainer onClick={addCoffeeCardAndQuantityToCart}>
               <ShoppingCart size={17} />
             </CardCartContainer>

@@ -25,8 +25,6 @@ export function coffeesReducer(state: CoffeeAndQuantity[], action: any) {
 
       if (newCoffeeAlreadyOnCart.length) {
         return state.map((coffeeAndQuantity) => {
-          console.log(coffeeAndQuantity)
-          console.log(action.payload.newCoffee)
           if (
             coffeeAndQuantity.coffee.title ===
             action.payload.newCoffee.coffee.title
@@ -44,6 +42,18 @@ export function coffeesReducer(state: CoffeeAndQuantity[], action: any) {
         return [...state, action.payload.newCoffee]
       }
     }
+
+    case ActionTypes.CHANGE_QUANTITY_OF_COFFEE_ON_CART:
+      return state.map((coffeeAndQuantity) => {
+        if (coffeeAndQuantity.coffee.title === action.payload.coffeeTitle) {
+          return {
+            ...coffeeAndQuantity,
+            quantity:
+              coffeeAndQuantity.quantity + action.payload.quantityToChange,
+          }
+        }
+        return coffeeAndQuantity
+      })
 
     default:
       return state
