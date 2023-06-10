@@ -5,7 +5,8 @@ import { CoffeeCartCardContainer } from './styles'
 import { CartContext } from '../../../../../../contexts/CartContext'
 
 export function CoffeeCartCard({ coffee, quantity }: CoffeeAndQuantity) {
-  const { changeQuantityOfCoffeeOnCart } = useContext(CartContext)
+  const { changeQuantityOfCoffeeOnCart, deleteCoffeeFromCart } =
+    useContext(CartContext)
 
   function addQuantityOfCoffeeOnCart() {
     changeQuantityOfCoffeeOnCart(coffee.title, 1)
@@ -13,6 +14,10 @@ export function CoffeeCartCard({ coffee, quantity }: CoffeeAndQuantity) {
 
   function removeQuantityOfCoffeeOnCart() {
     changeQuantityOfCoffeeOnCart(coffee.title, -1)
+  }
+
+  function deleteThisCoffeeFromCart() {
+    deleteCoffeeFromCart(coffee.title)
   }
 
   return (
@@ -27,6 +32,7 @@ export function CoffeeCartCard({ coffee, quantity }: CoffeeAndQuantity) {
           addQuantity={addQuantityOfCoffeeOnCart}
           removeQuantity={removeQuantityOfCoffeeOnCart}
         />
+        <button onClick={deleteThisCoffeeFromCart}>Remove</button>
       </div>
       <div>
         <p>{coffee.price}</p>

@@ -28,9 +28,5 @@ export const CheckoutResumeInfoWrapper = styled.div`
 `
 
 export const Divider = styled.div`
-  /* width: 368px;
-height: 0px; */
-
-  border: 1px solid #e6e5e5;
-  margin-bottom: 1.5rem;
+  border: 1px solid ${(props) => props.theme['base-button']};
 `

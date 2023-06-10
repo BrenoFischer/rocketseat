@@ -3,6 +3,7 @@ import { CoffeeAndQuantity, coffeesReducer } from '../reducers/coffee/reducer'
 import {
   addCoffeeToCartAction,
   changeQuantityOfCoffeeOnCartAction,
+  deleteCoffeeFromCartAction,
 } from '../reducers/coffee/action'
 
 interface CartContextType {
@@ -13,6 +14,7 @@ interface CartContextType {
     coffeeTitle: string,
     quantityToChange: number,
   ) => void
+  deleteCoffeeFromCart: (coffeeTitle: string) => void
 }
 
 export const CartContext = createContext({} as CartContextType)
@@ -54,6 +56,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     dispatch(changeQuantityOfCoffeeOnCartAction(coffeeTitle, quantityToChange))
   }
 
+  function deleteCoffeeFromCart(coffeeTitle: string) {
+    dispatch(deleteCoffeeFromCartAction(coffeeTitle))
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -61,6 +67,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         addCoffeeToCart,
         getCoffeesQuantity,
         changeQuantityOfCoffeeOnCart,
+        deleteCoffeeFromCart,
       }}
     >
       {children}

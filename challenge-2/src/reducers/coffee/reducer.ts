@@ -44,15 +44,27 @@ export function coffeesReducer(state: CoffeeAndQuantity[], action: any) {
     }
 
     case ActionTypes.CHANGE_QUANTITY_OF_COFFEE_ON_CART:
-      return state.map((coffeeAndQuantity) => {
-        if (coffeeAndQuantity.coffee.title === action.payload.coffeeTitle) {
-          return {
-            ...coffeeAndQuantity,
-            quantity:
-              coffeeAndQuantity.quantity + action.payload.quantityToChange,
+      return state
+        .filter((coffeeAndQuantity) => {
+          return !(
+            coffeeAndQuantity.coffee.title === action.payload.coffeeTitle &&
+            coffeeAndQuantity.quantity + action.payload.quantityToChange === 0
+          )
+        })
+        .map((coffeeAndQuantity) => {
+          if (coffeeAndQuantity.coffee.title === action.payload.coffeeTitle) {
+            return {
+              ...coffeeAndQuantity,
+              quantity:
+                coffeeAndQuantity.quantity + action.payload.quantityToChange,
+            }
           }
-        }
-        return coffeeAndQuantity
+          return coffeeAndQuantity
+        })
+
+    case ActionTypes.DELETE_COFFEE_FROM_CART:
+      return state.filter((coffeeAndQuantity) => {
+        return !(coffeeAndQuantity.coffee.title === action.payload.coffeeTitle)
       })
 
     default:
