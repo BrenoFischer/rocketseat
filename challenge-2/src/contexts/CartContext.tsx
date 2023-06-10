@@ -15,6 +15,7 @@ interface CartContextType {
     quantityToChange: number,
   ) => void
   deleteCoffeeFromCart: (coffeeTitle: string) => void
+  getTotalCartPrice: () => number
 }
 
 export const CartContext = createContext({} as CartContextType)
@@ -60,6 +61,15 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     dispatch(deleteCoffeeFromCartAction(coffeeTitle))
   }
 
+  function getTotalCartPrice() {
+    return coffees.reduce((acc, coffeeAndQuantity) => {
+      return (
+        acc +
+        parseFloat(coffeeAndQuantity.coffee.price) * coffeeAndQuantity.quantity
+      )
+    }, 0)
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -68,6 +78,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         getCoffeesQuantity,
         changeQuantityOfCoffeeOnCart,
         deleteCoffeeFromCart,
+        getTotalCartPrice,
       }}
     >
       {children}
