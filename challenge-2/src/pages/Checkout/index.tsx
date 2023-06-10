@@ -1,3 +1,12 @@
+import { CheckoutForm } from './components/CheckoutForm'
+import { CheckoutResume } from './components/CheckoutResume'
+import { CheckoutContainer } from './styles'
+
 export function Checkout() {
-  return <h1>Checkout</h1>
+  return (
+    <CheckoutContainer>
+      <CheckoutForm />
+      <CheckoutResume />
+    </CheckoutContainer>
+  )
 }

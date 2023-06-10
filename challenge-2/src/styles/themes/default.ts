@@ -13,7 +13,7 @@ export const defaultTheme = {
   'base-subtitle': '#403937',
   'base-text': '#574f4d',
   'base-label': '#8d8686',
-  'base-hover': '#d7d5d5d',
+  'base-hover': '#d7d5d5',
   'base-button': '#e6e5e5',
   'base-input': '#ededed',
   'base-card': '#f3f2f2',
