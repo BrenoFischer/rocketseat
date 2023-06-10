@@ -15,14 +15,15 @@ interface CartContextProviderProps {
 }
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [coffees, dispatch] = useReducer(coffeesReducer, [], () => {
+  const [coffees, dispatch] = useReducer(coffeesReducer, [], (initialState) => {
     const storedCoffeesAsJson = localStorage.getItem(
       '@challenge-2:coffees-1.0.0',
     )
-
     if (storedCoffeesAsJson) {
       return JSON.parse(storedCoffeesAsJson)
     }
+
+    return initialState
   })
 
   useEffect(() => {
