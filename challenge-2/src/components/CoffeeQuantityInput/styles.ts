@@ -4,7 +4,6 @@ export const QuantityContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 0.5rem;
   gap: 0.25rem;
 
   width: 4.5rem;

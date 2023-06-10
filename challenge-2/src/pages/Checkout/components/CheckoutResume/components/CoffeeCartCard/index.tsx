@@ -1,8 +1,14 @@
 import { useContext } from 'react'
 import { CoffeeQuantityInput } from '../../../../../../components/CoffeeQuantityInput'
 import { CoffeeAndQuantity } from '../../../../../../reducers/coffee/reducer'
-import { CoffeeCartCardContainer } from './styles'
+import {
+  CoffeeCardCartPrice,
+  CoffeeCartCardContainer,
+  CoffeeCartCardLeftContainer,
+  CoffeeCartCardMiddleContainer,
+} from './styles'
 import { CartContext } from '../../../../../../contexts/CartContext'
+import { Trash } from '@phosphor-icons/react'
 
 export function CoffeeCartCard({ coffee, quantity }: CoffeeAndQuantity) {
   const { changeQuantityOfCoffeeOnCart, deleteCoffeeFromCart } =
@@ -22,21 +28,27 @@ export function CoffeeCartCard({ coffee, quantity }: CoffeeAndQuantity) {
 
   return (
     <CoffeeCartCardContainer>
-      <div>
-        <img src={coffee.img} alt="" />
-      </div>
-      <div>
-        <h3>{coffee.title}</h3>
-        <CoffeeQuantityInput
-          quantity={quantity}
-          addQuantity={addQuantityOfCoffeeOnCart}
-          removeQuantity={removeQuantityOfCoffeeOnCart}
-        />
-        <button onClick={deleteThisCoffeeFromCart}>Remove</button>
-      </div>
-      <div>
-        <p>{coffee.price}</p>
-      </div>
+      <CoffeeCartCardLeftContainer>
+        <div>
+          <img src={coffee.img} alt="" />
+        </div>
+        <CoffeeCartCardMiddleContainer>
+          <h3>{coffee.title}</h3>
+          <div>
+            <CoffeeQuantityInput
+              quantity={quantity}
+              addQuantity={addQuantityOfCoffeeOnCart}
+              removeQuantity={removeQuantityOfCoffeeOnCart}
+            />
+            <button onClick={deleteThisCoffeeFromCart}>
+              <Trash size={16} /> Remove
+            </button>
+          </div>
+        </CoffeeCartCardMiddleContainer>
+      </CoffeeCartCardLeftContainer>
+      <CoffeeCardCartPrice>
+        <p>€{coffee.price}</p>
+      </CoffeeCardCartPrice>
     </CoffeeCartCardContainer>
   )
 }

@@ -15,11 +15,11 @@ export function CoffeeQuantityInput({
   return (
     <QuantityContainer>
       <button onClick={removeQuantity}>
-        <Minus size={13} />
+        <Minus size={14} />
       </button>
       {quantity}
       <button onClick={addQuantity}>
-        <Plus size={13} />
+        <Plus size={14} />
       </button>
     </QuantityContainer>
   )
