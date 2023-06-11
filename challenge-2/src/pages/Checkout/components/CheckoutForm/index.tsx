@@ -1,4 +1,5 @@
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useContext, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import {
   MapPinLine,
   CurrencyDollar,
@@ -17,9 +18,16 @@ import {
   FormTextInput,
   FormTextInputSetWrapper,
 } from './styles'
+import {
+  CartContext,
+  DeliveryAddressType,
+} from '../../../../contexts/CartContext'
 
 export function CheckoutForm() {
+  const { register, handleSubmit } = useForm<DeliveryAddressType>()
   const [selectedPaymentOption, setSelectedPaymentOption] = useState('')
+
+  const { handleFormSubmit, addressInformation } = useContext(CartContext)
 
   interface FormFieldsSectionComponentProps {
     children?: ReactNode
@@ -50,10 +58,15 @@ export function CheckoutForm() {
     )
   }
 
+  function handleSubmitOrder(data: DeliveryAddressType) {
+    // console.log(data)
+    handleFormSubmit(data)
+  }
+
   return (
     <CheckoutFormContainer>
       <h2>Complete your order</h2>
-      <form>
+      <form id="cart-form" onSubmit={handleSubmit(handleSubmitOrder)}>
         <FormFieldsSectionComponent
           iconColor="yellow"
           icon={<MapPinLine size={20} />}
@@ -65,12 +78,14 @@ export function CheckoutForm() {
             type="text"
             placeholder="Eircode*"
             width={33}
+            {...register('eircode')}
           />
           <FormTextInput
             required
             type="text"
             placeholder="Street*"
             width={100}
+            {...register('street')}
           />
           <FormTextInputSetWrapper>
             <FormTextInput
@@ -78,22 +93,35 @@ export function CheckoutForm() {
               type="text"
               placeholder="Number*"
               width={33}
+              {...register('number')}
             />
-            <FormTextInput type="text" placeholder="Address 2" width={66} />
+            <FormTextInput
+              type="text"
+              placeholder="Address 2"
+              width={66}
+              {...register('address2')}
+            />
           </FormTextInputSetWrapper>
           <FormTextInputSetWrapper>
-            <FormTextInput type="text" placeholder="Neighbourhood" width={33} />
+            <FormTextInput
+              type="text"
+              placeholder="Neighbourhood"
+              width={33}
+              {...register('neighbourhood')}
+            />
             <FormTextInput
               required
               type="text"
               placeholder="City*"
               width={56}
+              {...register('city')}
             />
             <FormTextInput
               required
               type="text"
               placeholder="State*"
               width={11}
+              {...register('state')}
             />
           </FormTextInputSetWrapper>
         </FormFieldsSectionComponent>
@@ -127,6 +155,7 @@ export function CheckoutForm() {
           </FormPaymentsFieldsContainer>
         </FormFieldsSectionComponent>
       </form>
+      {JSON.stringify(addressInformation)}
     </CheckoutFormContainer>
   )
 }

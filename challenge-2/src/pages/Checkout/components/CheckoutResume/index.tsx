@@ -47,7 +47,9 @@ export function CheckoutResume() {
             <span>Total:</span> <span>€{totalPurchasePrice}</span>
           </TotalPriceContainer>
         </CheckoutPricesContainer>
-        <CheckoutConfirmButton>Confirm Purchase</CheckoutConfirmButton>
+        <CheckoutConfirmButton form="cart-form" type="submit">
+          Confirm Purchase
+        </CheckoutConfirmButton>
       </CheckoutResumeInfoWrapper>
     </CheckoutResumeContainer>
   )
