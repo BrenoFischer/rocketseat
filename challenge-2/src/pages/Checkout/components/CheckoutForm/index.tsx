@@ -20,14 +20,17 @@ import {
 } from './styles'
 import {
   CartContext,
-  DeliveryAddressType,
+  CartFormValuesType,
+  PaymentMethodType,
 } from '../../../../contexts/CartContext'
 
 export function CheckoutForm() {
-  const { register, handleSubmit } = useForm<DeliveryAddressType>()
-  const [selectedPaymentOption, setSelectedPaymentOption] = useState('')
+  const { register, handleSubmit } = useForm<CartFormValuesType>()
+  const [selectedPaymentOption, setSelectedPaymentOption] =
+    useState<PaymentMethodType>({ paymentMethod: null })
 
-  const { handleFormSubmit, addressInformation } = useContext(CartContext)
+  const { handleFormSubmit, cartFormValues, changePaymentMethod } =
+    useContext(CartContext)
 
   interface FormFieldsSectionComponentProps {
     children?: ReactNode
@@ -58,7 +61,12 @@ export function CheckoutForm() {
     )
   }
 
-  function handleSubmitOrder(data: DeliveryAddressType) {
+  function onPaymentMethodChange(paymentMethod: PaymentMethodType) {
+    changePaymentMethod(paymentMethod)
+    setSelectedPaymentOption(paymentMethod)
+  }
+
+  function handleSubmitOrder(data: CartFormValuesType) {
     // console.log(data)
     handleFormSubmit(data)
   }
@@ -78,14 +86,14 @@ export function CheckoutForm() {
             type="text"
             placeholder="Eircode*"
             width={33}
-            {...register('eircode')}
+            {...register('addressInformation.eircode')}
           />
           <FormTextInput
             required
             type="text"
             placeholder="Street*"
             width={100}
-            {...register('street')}
+            {...register('addressInformation.street')}
           />
           <FormTextInputSetWrapper>
             <FormTextInput
@@ -93,13 +101,13 @@ export function CheckoutForm() {
               type="text"
               placeholder="Number*"
               width={33}
-              {...register('number')}
+              {...register('addressInformation.number')}
             />
             <FormTextInput
               type="text"
               placeholder="Address 2"
               width={66}
-              {...register('address2')}
+              {...register('addressInformation.address2')}
             />
           </FormTextInputSetWrapper>
           <FormTextInputSetWrapper>
@@ -107,21 +115,21 @@ export function CheckoutForm() {
               type="text"
               placeholder="Neighbourhood"
               width={33}
-              {...register('neighbourhood')}
+              {...register('addressInformation.neighbourhood')}
             />
             <FormTextInput
               required
               type="text"
               placeholder="City*"
               width={56}
-              {...register('city')}
+              {...register('addressInformation.city')}
             />
             <FormTextInput
               required
               type="text"
               placeholder="State*"
               width={11}
-              {...register('state')}
+              {...register('addressInformation.state')}
             />
           </FormTextInputSetWrapper>
         </FormFieldsSectionComponent>
@@ -135,27 +143,27 @@ export function CheckoutForm() {
         >
           <FormPaymentsFieldsContainer>
             <FormPaymentInput
-              onClick={() => setSelectedPaymentOption('credit')}
-              selected={selectedPaymentOption === 'credit'}
+              onClick={() => onPaymentMethodChange({ paymentMethod: 'credit' })}
+              selected={selectedPaymentOption.paymentMethod === 'credit'}
             >
               <CreditCard size={16} /> Credit Card
             </FormPaymentInput>
             <FormPaymentInput
-              onClick={() => setSelectedPaymentOption('debit')}
-              selected={selectedPaymentOption === 'debit'}
+              onClick={() => onPaymentMethodChange({ paymentMethod: 'debit' })}
+              selected={selectedPaymentOption.paymentMethod === 'debit'}
             >
               <Bank size={16} /> Debit Card
             </FormPaymentInput>
             <FormPaymentInput
-              onClick={() => setSelectedPaymentOption('cash')}
-              selected={selectedPaymentOption === 'cash'}
+              onClick={() => onPaymentMethodChange({ paymentMethod: 'cash' })}
+              selected={selectedPaymentOption.paymentMethod === 'cash'}
             >
               <Money size={16} /> Cash
             </FormPaymentInput>
           </FormPaymentsFieldsContainer>
         </FormFieldsSectionComponent>
       </form>
-      {JSON.stringify(addressInformation)}
+      {JSON.stringify(cartFormValues)}
     </CheckoutFormContainer>
   )
 }

@@ -12,7 +12,7 @@ import {
   deleteCoffeeFromCartAction,
 } from '../reducers/coffee/action'
 
-export interface DeliveryAddressType {
+interface DeliveryAddressType {
   eircode: string
   street: string
   number: string
@@ -22,14 +22,18 @@ export interface DeliveryAddressType {
   state: string
 }
 
-interface PaymentMethodType {
+export interface PaymentMethodType {
   paymentMethod: 'credit' | 'debit' | 'cash' | null
+}
+
+export interface CartFormValuesType {
+  addressInformation: DeliveryAddressType
+  paymentMethod?: PaymentMethodType
 }
 
 interface CartContextType {
   coffees: CoffeeAndQuantity[]
-  addressInformation: DeliveryAddressType
-  paymentMethod: PaymentMethodType
+  cartFormValues: CartFormValuesType
   addCoffeeToCart: (newCoffee: CoffeeAndQuantity) => void
   getCoffeesQuantity: () => number
   changeQuantityOfCoffeeOnCart: (
@@ -38,7 +42,8 @@ interface CartContextType {
   ) => void
   deleteCoffeeFromCart: (coffeeTitle: string) => void
   getTotalCartPrice: () => number
-  handleFormSubmit: (data: DeliveryAddressType) => void
+  handleFormSubmit: (data: CartFormValuesType) => void
+  changePaymentMethod: (newPaymentMethod: PaymentMethodType) => void
 }
 
 export const CartContext = createContext({} as CartContextType)
@@ -47,22 +52,25 @@ interface CartContextProviderProps {
   children: ReactNode
 }
 
-const addressInformationInitialState = {
-  eircode: '',
-  street: '',
-  number: '',
-  address2: '',
-  neighbourhood: '',
-  city: '',
-  state: '',
+const cartFormValuesInitialState = {
+  addressInformation: {
+    eircode: '',
+    street: '',
+    number: '',
+    address2: '',
+    neighbourhood: '',
+    city: '',
+    state: '',
+  },
+  paymentMethod: {
+    paymentMethod: null,
+  },
 }
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [addressInformation, setAddressInformation] =
-    useState<DeliveryAddressType>(addressInformationInitialState)
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethodType>({
-    paymentMethod: null,
-  })
+  const [cartFormValues, setCartFormValues] = useState<CartFormValuesType>(
+    cartFormValuesInitialState,
+  )
   const [coffees, dispatch] = useReducer(coffeesReducer, [], (initialState) => {
     const storedCoffeesAsJson = localStorage.getItem(
       '@challenge-2:coffees-1.0.0',
@@ -108,23 +116,30 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     }, 0)
   }
 
-  function handleFormSubmit(data: DeliveryAddressType) {
+  function handleFormSubmit(data: CartFormValuesType) {
     console.log(data)
-    setAddressInformation(data)
+    setCartFormValues({
+      ...cartFormValues,
+      addressInformation: data.addressInformation,
+    })
+  }
+
+  function changePaymentMethod(newPaymentMethod: PaymentMethodType) {
+    setCartFormValues({ ...cartFormValues, paymentMethod: newPaymentMethod })
   }
 
   return (
     <CartContext.Provider
       value={{
         coffees,
-        addressInformation,
-        paymentMethod,
+        cartFormValues,
         addCoffeeToCart,
         getCoffeesQuantity,
         changeQuantityOfCoffeeOnCart,
         deleteCoffeeFromCart,
         getTotalCartPrice,
         handleFormSubmit,
+        changePaymentMethod,
       }}
     >
       {children}
