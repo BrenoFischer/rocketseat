@@ -28,7 +28,7 @@ export interface PaymentMethodType {
 
 export interface CartFormValuesType {
   addressInformation: DeliveryAddressType
-  paymentMethod?: PaymentMethodType
+  paymentMethod: PaymentMethodType
 }
 
 interface CartContextType {
@@ -117,11 +117,16 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   }
 
   function handleFormSubmit(data: CartFormValuesType) {
-    console.log(data)
-    setCartFormValues({
-      ...cartFormValues,
-      addressInformation: data.addressInformation,
-    })
+    if (coffees.length === 0) {
+      alert(
+        'Add at least one coffe to your cart, before finishing the purchase.',
+      )
+    } else {
+      setCartFormValues({
+        ...cartFormValues,
+        addressInformation: data.addressInformation,
+      })
+    }
   }
 
   function changePaymentMethod(newPaymentMethod: PaymentMethodType) {

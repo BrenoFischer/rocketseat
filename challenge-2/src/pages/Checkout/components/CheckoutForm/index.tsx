@@ -23,14 +23,17 @@ import {
   CartFormValuesType,
   PaymentMethodType,
 } from '../../../../contexts/CartContext'
+import { useNavigate } from 'react-router-dom'
 
 export function CheckoutForm() {
+  const navigate = useNavigate()
   const { register, handleSubmit } = useForm<CartFormValuesType>()
-  const [selectedPaymentOption, setSelectedPaymentOption] =
-    useState<PaymentMethodType>({ paymentMethod: null })
 
   const { handleFormSubmit, cartFormValues, changePaymentMethod } =
     useContext(CartContext)
+
+  const [selectedPaymentOption, setSelectedPaymentOption] =
+    useState<PaymentMethodType>(cartFormValues.paymentMethod)
 
   interface FormFieldsSectionComponentProps {
     children?: ReactNode
@@ -67,8 +70,12 @@ export function CheckoutForm() {
   }
 
   function handleSubmitOrder(data: CartFormValuesType) {
-    // console.log(data)
-    handleFormSubmit(data)
+    if (selectedPaymentOption.paymentMethod === null) {
+      alert('Choose a payment method')
+    } else {
+      handleFormSubmit(data)
+      navigate('/success', { replace: true })
+    }
   }
 
   return (
