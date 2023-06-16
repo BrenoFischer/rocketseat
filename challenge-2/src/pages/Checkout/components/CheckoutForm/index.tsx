@@ -170,7 +170,6 @@ export function CheckoutForm() {
           </FormPaymentsFieldsContainer>
         </FormFieldsSectionComponent>
       </form>
-      {JSON.stringify(cartFormValues)}
     </CheckoutFormContainer>
   )
 }
