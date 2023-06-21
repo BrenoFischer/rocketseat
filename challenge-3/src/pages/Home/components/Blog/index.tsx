@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
-
+import { useContext } from 'react'
 import { BlogContainer, CardsContainer } from './styles'
-import { api } from '../../../../lib/axios'
 import { formatDistanceToNow } from 'date-fns'
+import { IssuesContext } from '../../../../contexts/IssuesContext'
 
 interface Issue {
   title: string
@@ -43,29 +42,7 @@ function Card({ issue }: CardProps) {
 }
 
 export function Blog() {
-  const [issues, setIssues] = useState<Issue[]>([])
-
-  async function fetchIssues() {
-    const response = await api.get('search/issues', {
-      params: {
-        q: 'repo:BrenoFischer/rocketseat/',
-      },
-    })
-
-    const issuesArray = response.data.items.map((issue) => {
-      return {
-        title: issue.title,
-        createdAt: issue.created_at,
-        body: issue.body,
-      }
-    })
-
-    setIssues(issuesArray)
-  }
-
-  useEffect(() => {
-    fetchIssues()
-  }, [])
+  const { issues } = useContext(IssuesContext)
 
   return (
     <BlogContainer>

@@ -6,6 +6,7 @@ import { Profile } from './components/Profile'
 import { api } from '../../lib/axios'
 
 import Avatar from '../../assets/avatar.png'
+import { IssuesProvider } from '../../contexts/IssuesContext'
 
 export interface User {
   name: string
@@ -49,7 +50,9 @@ export function Home() {
     <div>
       <Header />
       <Profile user={user} />
-      <Blog />
+      <IssuesProvider>
+        <Blog />
+      </IssuesProvider>
     </div>
   )
 }
