@@ -17,6 +17,15 @@ export const ProfileContainer = styled.div`
   display: flex;
   gap: 2rem;
 
+  img {
+    border-radius: 8px;
+    max-height: 9.25rem;
+  }
+
+  > div {
+    width: 100%;
+  }
+
   header {
     display: flex;
     justify-content: space-between;
