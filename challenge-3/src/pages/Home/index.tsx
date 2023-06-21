@@ -29,13 +29,7 @@ export function Home() {
   const [user, setUser] = useState(defaultUserState as User)
 
   async function fetchUser(username = 'BrenoFischer') {
-    // const response = await fetch(`http://api.github.com/users/${username}`)
-
-    // const data = await response.json()
-
     const response = await api.get(`users/${username}`)
-
-    console.log(response.data)
 
     setUser({
       name: response.data.name,

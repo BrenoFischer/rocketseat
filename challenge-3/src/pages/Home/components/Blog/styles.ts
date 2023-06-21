@@ -6,6 +6,7 @@ export const BlogContainer = styled.main`
 
   margin: 0 auto;
   margin-top: 4.5rem;
+  margin-bottom: 5rem;
 
   header {
     & > div {
@@ -83,10 +84,10 @@ export const CardsContainer = styled.ul`
       }
 
       span {
-        font-size: 0.875rem;
+        font-size: 0.8rem;
         line-height: 160%;
 
-        margin-top: 0.3rem;
+        margin-top: 0.35rem;
 
         color: ${(props) => props.theme['base-span']};
 
