@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import { Header } from '../../components/Header'
 import { Blog } from './components/Blog'
 import { Profile } from './components/Profile'
 import { api } from '../../lib/axios'
@@ -48,7 +47,6 @@ export function Home() {
 
   return (
     <div>
-      <Header />
       <Profile user={user} />
       <IssuesProvider>
         <Blog />

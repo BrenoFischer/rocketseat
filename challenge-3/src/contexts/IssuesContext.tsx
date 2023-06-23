@@ -5,11 +5,12 @@ export interface Issue {
   title: string
   createdAt: string
   body: string
+  url: string
 }
 
 interface IssuesProviderType {
   issues: Issue[]
-  fetchIssues: (specificQuery: string) => void
+  fetchIssues: (keywords: string) => void
 }
 
 export const IssuesContext = createContext({} as IssuesProviderType)
@@ -21,9 +22,9 @@ interface IssuesProviderProps {
 export function IssuesProvider({ children }: IssuesProviderProps) {
   const [issues, setIssues] = useState<Issue[]>([])
 
-  async function fetchIssues(specificQuery?: string) {
+  async function fetchIssues(keywords?: string) {
     const query = `${
-      specificQuery === undefined ? '' : specificQuery
+      keywords === undefined ? '' : keywords
     }repo:BrenoFischer/rocketseat/`
 
     const response = await api.get('search/issues', {
@@ -37,6 +38,7 @@ export function IssuesProvider({ children }: IssuesProviderProps) {
         title: issue.title,
         createdAt: issue.created_at,
         body: issue.body,
+        url: issue.url,
       }
     })
 
