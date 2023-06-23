@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { BlogContainer, CardsContainer } from './styles'
 import { formatDistanceToNow } from 'date-fns'
 import { IssuesContext } from '../../../../contexts/IssuesContext'
+import { useForm } from 'react-hook-form'
 
 interface Issue {
   title: string
@@ -41,8 +42,18 @@ function Card({ issue }: CardProps) {
   )
 }
 
+type SearchIssueInputs = {
+  keywords: string
+}
+
 export function Blog() {
-  const { issues } = useContext(IssuesContext)
+  const { issues, fetchIssues } = useContext(IssuesContext)
+
+  const { register, handleSubmit } = useForm<SearchIssueInputs>()
+
+  function handleSearchIssue(data: SearchIssueInputs) {
+    fetchIssues(data.keywords)
+  }
 
   return (
     <BlogContainer>
@@ -51,7 +62,13 @@ export function Blog() {
           <h3>Posts</h3>
           <span>6 Posts</span>
         </div>
-        <input type="text" placeholder="Search Post" />
+        <form onSubmit={handleSubmit(handleSearchIssue)}>
+          <input
+            type="text"
+            placeholder="Search Post"
+            {...register('keywords')}
+          />
+        </form>
       </header>
       <CardsContainer>
         {issues.map((issue) => {
