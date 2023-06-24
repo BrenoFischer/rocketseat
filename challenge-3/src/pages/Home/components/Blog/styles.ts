@@ -59,6 +59,10 @@ export const CardsContainer = styled.ul`
 
   list-style: none;
 
+  a {
+    all: unset;
+  }
+
   li {
     height: 16.25rem;
     padding: 2rem;

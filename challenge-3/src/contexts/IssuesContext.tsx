@@ -5,7 +5,7 @@ export interface Issue {
   title: string
   createdAt: string
   body: string
-  url: string
+  number: string
 }
 
 interface IssuesProviderType {
@@ -38,7 +38,7 @@ export function IssuesProvider({ children }: IssuesProviderProps) {
         title: issue.title,
         createdAt: issue.created_at,
         body: issue.body,
-        url: issue.url,
+        number: issue.number,
       }
     })
 
