@@ -48,7 +48,7 @@ export function Home() {
   return (
     <div>
       <Profile user={user} />
-      <IssuesProvider>{/* <Blog /> */}</IssuesProvider>
+      {/* <IssuesProvider><Blog /></IssuesProvider> */}
     </div>
   )
 }
