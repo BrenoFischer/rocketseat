@@ -14,4 +14,15 @@ export const Header = styled('header', {
     width: '100%',
     maxWidth: 1180,
     margin: '0 auto',
+
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+})
+
+export const IconContainer = styled('div', {
+    background: '$gray800',
+    padding: '0.75rem',
+    borderRadius: 6,
+    cursor: 'pointer',
 })
