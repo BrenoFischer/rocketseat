@@ -1,12 +1,14 @@
-import { ImageContainer, ProductContainer, ProductDetails } from '@/src/styles/pages/product'
+import { useContext, useState } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
-import { stripe } from '../../lib/stripe'
-import Stripe from 'stripe'
 import Image from 'next/image'
-import axios from 'axios'
-import { useState } from 'react'
 import Head from 'next/head'
+import axios from 'axios'
+import Stripe from 'stripe'
+
+import { stripe } from '../../lib/stripe'
+import { ImageContainer, ProductContainer, ProductDetails } from '@/src/styles/pages/product'
+import { CartContext } from '@/src/contexts/CartContext'
 
 interface ProductProps {
     product: {
@@ -20,23 +22,25 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
-    const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+    // const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+    const { addProductToCart } = useContext(CartContext)
 
     async function handleBuyProduct() {
-        try {
-            setIsCreatingCheckoutSession(true);
+        // try {
+            // setIsCreatingCheckoutSession(true);
 
-            const response = await axios.post('/api/checkout', {
-                priceId: product.defaultPriceId,
-            })
+            // const response = await axios.post('/api/checkout', {
+            //     priceId: product.defaultPriceId,
+            // })
 
-            const { checkoutUrl } = response.data;
+            // const { checkoutUrl } = response.data;
 
-            window.location.href = checkoutUrl
-        } catch(err) {
-            setIsCreatingCheckoutSession(false);
-            alert('Error during checkout redirect')
-        }
+            // window.location.href = checkoutUrl
+            addProductToCart(product);
+        // } catch(err) {
+        //     setIsCreatingCheckoutSession(false);
+        //     alert('Error during checkout redirect')
+        // }
     }
 
     const { isFallback } = useRouter()
@@ -60,7 +64,8 @@ export default function Product({ product }: ProductProps) {
                     <span>{product.price}</span>
 
                     <p>{product.description}</p>
-                    <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>
+                    {/* <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}> */}
+                    <button onClick={handleBuyProduct}>
                         Buy now
                     </button>
                 </ProductDetails>

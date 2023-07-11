@@ -25,4 +25,11 @@ export const IconContainer = styled('div', {
     padding: '0.75rem',
     borderRadius: 6,
     cursor: 'pointer',
+    position: 'relative',
+})
+
+export const CartQuantityContainer = styled('div', {
+    background: '$green500',
+    borderRadius: '50%',
+    
 })
