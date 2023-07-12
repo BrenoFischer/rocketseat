@@ -31,5 +31,14 @@ export const IconContainer = styled('div', {
 export const CartQuantityContainer = styled('div', {
     background: '$green500',
     borderRadius: '50%',
-    
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '2rem',
+    height: '2rem',
+    border: '4px solid $gray900',
+
+    position: 'absolute',
+    right: '-1rem',
+    top: '-1rem',
 })

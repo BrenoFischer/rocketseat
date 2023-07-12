@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { Header, IconContainer } from "../styles/pages/app";
+import { CartQuantityContainer, Header, IconContainer } from "../styles/pages/app";
 import Image from "next/image";
 import { Handbag } from "@phosphor-icons/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../contexts/CartContext";
 import axios from "axios";
 import logoImg from '../assets/logo.svg'
@@ -10,6 +10,7 @@ import logoImg from '../assets/logo.svg'
 
 
 export default function HeaderComponent() {
+    const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
     const { products } = useContext(CartContext);
 
     const productsQuantity = products?.length;
@@ -17,13 +18,20 @@ export default function HeaderComponent() {
     async function handleBuyProducts() {
       const pricesId = products.map(product => product.defaultPriceId)
   
-      const response = await axios.post('/api/checkout', {
-        pricesId: pricesId,
-      })
-  
-      const { checkoutUrl } = response.data;
-  
-      window.location.href = checkoutUrl
+      try {
+            setIsCreatingCheckoutSession(true);
+
+          const response = await axios.post('/api/checkout', {
+            pricesId: pricesId,
+          })
+      
+          const { checkoutUrl } = response.data;
+      
+          window.location.href = checkoutUrl
+      } catch(err) {
+            setIsCreatingCheckoutSession(false);
+            alert('Error during checkout redirect')
+      }
     }
 
     return(
@@ -34,8 +42,8 @@ export default function HeaderComponent() {
           <IconContainer>
             <Handbag size={24} onClick={handleBuyProducts} />
             {productsQuantity > 0 ? 
-                <>{productsQuantity}</> 
-              : 
+                <CartQuantityContainer>{productsQuantity}</CartQuantityContainer> 
+              :
                 <></>
             }
           </IconContainer>
