@@ -25,24 +25,27 @@ export default function HeaderComponent() {
         removeProductFromCart(priceId);
     }
 
-    async function handleBuyProducts() {
+    function handleBuyProducts() {
         toggleCartState();
-    //   const pricesId = products.map(product => product.defaultPriceId)
-  
-    //   try {
-    //         setIsCreatingCheckoutSession(true);
+    }
 
-    //       const response = await axios.post('/api/checkout', {
-    //         pricesId: pricesId,
-    //       })
-      
-    //       const { checkoutUrl } = response.data;
-      
-    //       window.location.href = checkoutUrl
-    //   } catch(err) {
-    //         setIsCreatingCheckoutSession(false);
-    //         alert('Error during checkout redirect')
-    //   }
+    async function handleGoToCheckout() {
+        const pricesId = products.map(product => product.defaultPriceId)
+
+        try {
+                setIsCreatingCheckoutSession(true);
+
+            const response = await axios.post('/api/checkout', {
+                pricesId: pricesId,
+            })
+        
+            const { checkoutUrl } = response.data;
+        
+            window.location.href = checkoutUrl
+        } catch(err) {
+                setIsCreatingCheckoutSession(false);
+                alert('Error during checkout redirect')
+        }
     }
 
     return(
@@ -50,8 +53,8 @@ export default function HeaderComponent() {
           <Link href={'/'}>
             <Image src={logoImg} alt="" />
           </Link>
-          <IconContainer>
-            <Handbag size={24} onClick={handleBuyProducts} />
+          <IconContainer onClick={handleBuyProducts}>
+            <Handbag size={24} />
             {productsQuantity > 0 ? 
                 <CartQuantityContainer>{productsQuantity}</CartQuantityContainer> 
               :
@@ -92,7 +95,7 @@ export default function HeaderComponent() {
                                     <TotalPriceOnCart>{totalPrice}</TotalPriceOnCart>
                                 </CartTotalDetailsContainer>
                                 <CartSubmitButtonWrapper>
-                                    <button type="submit">Checkout</button>
+                                    <button onClick={handleGoToCheckout}>Checkout</button>
                                 </CartSubmitButtonWrapper>
                             </div>
                         </CartMenuWrapper>
