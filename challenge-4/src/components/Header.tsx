@@ -11,7 +11,7 @@ import logoImg from '../assets/logo.svg'
 
 export default function HeaderComponent() {
     const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
-    const { products, cartIsOpen, toggleCartState } = useContext(CartContext);
+    const { products, cartIsOpen, toggleCartState, removeProductFromCart } = useContext(CartContext);
 
     const productsQuantity = products?.length;
     const totalPriceRaw = products.reduce((acc, product) => acc + parseFloat(product.price.slice(1, product.price.length - 1)), 0)
@@ -20,6 +20,10 @@ export default function HeaderComponent() {
         style: 'currency',
         currency: 'EUR',
         }).format(totalPriceRaw)
+
+    function handleRemoveProductFromCart(priceId: string) {
+        removeProductFromCart(priceId);
+    }
 
     async function handleBuyProducts() {
         toggleCartState();
@@ -72,7 +76,7 @@ export default function HeaderComponent() {
                                                     <h3>{product.name}</h3>
                                                     <p>{product.price}</p>
                                                 </div>
-                                                <button>Remove</button>
+                                                <button onClick={() => handleRemoveProductFromCart(product.defaultPriceId)}>Remove</button>
                                             </ProductDetailsCartContainer>
                                         </CartProductContainer>
                                     )

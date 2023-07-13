@@ -14,6 +14,7 @@ interface CartContextType {
     cartIsOpen: boolean;
     addProductToCart: (newProduct: Product) => void;
     toggleCartState: () => void;
+    removeProductFromCart: (productId: string) => void; 
 }
 
 interface CartProviderProps {
@@ -24,7 +25,7 @@ export const CartContext = createContext({} as CartContextType)
 
 export function CartProvider({ children }: CartProviderProps) {
     const [products, setProducts] = useState<Product[]>([]);
-    const [cartIsOpen, setCartIsOpen] = useState(true);
+    const [cartIsOpen, setCartIsOpen] = useState(false);
 
     function addProductToCart(newProduct: Product) {
       setProducts(state => [...state, newProduct]);
@@ -34,6 +35,12 @@ export function CartProvider({ children }: CartProviderProps) {
       setCartIsOpen(!cartIsOpen)
     }
 
+    function removeProductFromCart(productId: string) {
+      const productsFiltered = products.filter(product => product.defaultPriceId != productId);
+
+      setProducts(productsFiltered)
+    }
+
   return (
     <CartContext.Provider
       value={{
@@ -41,6 +48,7 @@ export function CartProvider({ children }: CartProviderProps) {
         cartIsOpen,
         addProductToCart,
         toggleCartState,
+        removeProductFromCart,
       }}
     >
       {children}
