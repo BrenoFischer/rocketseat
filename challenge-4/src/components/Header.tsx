@@ -94,8 +94,8 @@ export default function HeaderComponent() {
                                     <TotalPriceIndicator>Total Price</TotalPriceIndicator>
                                     <TotalPriceOnCart>{totalPrice}</TotalPriceOnCart>
                                 </CartTotalDetailsContainer>
-                                <CartSubmitButtonWrapper>
-                                    <button onClick={handleGoToCheckout}>Checkout</button>
+                                <CartSubmitButtonWrapper >
+                                    <button onClick={handleGoToCheckout} disabled={isCreatingCheckoutSession}>Checkout</button>
                                 </CartSubmitButtonWrapper>
                             </div>
                         </CartMenuWrapper>

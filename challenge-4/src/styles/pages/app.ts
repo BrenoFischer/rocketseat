@@ -178,5 +178,10 @@ export const CartSubmitButtonWrapper = styled('div', {
         fontSize: '1.125rem',
         fontWeight: '700',
         lineHeight: '160%',
+
+        '&:disabled': {
+            cursor: 'not-allowed',
+            opacity: '0.6',
+        },
     }
 })
