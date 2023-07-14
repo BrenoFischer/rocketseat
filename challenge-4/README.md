@@ -1,34 +1,27 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<img alt="cover" src="./src/assets/readme/cover.png" />
 
-## Getting Started
+# React - Challenge 4 - Next.js Fundamentals
 
-First, run the development server:
+## 💻 About Challenge
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+<p>E-commerce webpage to practice what was learned during <a href="https://www.rocketseat.com.br/ignite#trilhas">Rocketseat Ignite course - React Trail - Next.js Fundamentals</a>.</p>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📑 Project Functionalities
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Main functionalites and challenge goals:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- How to use Next.js
+- Differences between Single Page and Server Side Rendering apps
+- Use of getStaticProps/getStaticPaths with Next.js
+- Replicate the design from figma
+- Create project with Next.js, using React + Typescript
 
-## Learn More
+## 🎨 Challenge Layout
 
-To learn more about Next.js, take a look at the following resources:
+The design was provided by Rocketseat, on the Figma <a href="https://www.figma.com/file/FxlDRKOmznBbTH8DsTgnZU/Ignite-Shop-2.0/duplicate">link</a>.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Every pixel should be according to the design, including animations and hover effects.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<img src="./src/assets/readme/colors.png" />
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<img src="./src/assets/readme/components.png" />
