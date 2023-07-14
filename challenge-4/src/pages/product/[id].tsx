@@ -4,6 +4,8 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Head from 'next/head'
 import Stripe from 'stripe'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 import { stripe } from '../../lib/stripe'
 import { ImageContainer, ProductContainer, ProductDetails } from '@/src/styles/pages/product'
@@ -30,7 +32,25 @@ export default function Product({ product }: ProductProps) {
     const { isFallback } = useRouter()
 
     if(isFallback) {
-        return <p>Loading</p>
+        return(
+            <>
+                <Head>
+                    <title>Ignite Shop</title>
+                </Head>
+                <SkeletonTheme baseColor='#313131' highlightColor='#525252'>
+                    <ProductContainer>
+                        <Skeleton width={520} height={480} />
+
+                        <ProductDetails>
+                            <h1><Skeleton /></h1>
+                            <span><Skeleton /></span>
+
+                            <p><Skeleton count={3} /></p>
+                        </ProductDetails>
+                    </ProductContainer>
+                </SkeletonTheme>
+            </>
+        ) 
     }
 
     return(
@@ -48,7 +68,6 @@ export default function Product({ product }: ProductProps) {
                     <span>{product.price}</span>
 
                     <p>{product.description}</p>
-                    {/* <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}> */}
                     <button onClick={handleBuyProduct}>
                         Add to cart
                     </button>
