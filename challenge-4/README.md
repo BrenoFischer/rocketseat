@@ -13,7 +13,6 @@ Main functionalites and challenge goals:
 - How to use Next.js
 - Differences between Single Page and Server Side Rendering apps
 - Use of getStaticProps/getStaticPaths with Next.js
-- Use Stripe to replicate a e-commerce page
 - Replicate the design from figma
 - Create project with Next.js, using React + Typescript
 
